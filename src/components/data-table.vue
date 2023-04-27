@@ -1,11 +1,12 @@
 <template>
   <div class="data-table">
+    <data-header />
     <data-item v-for="data in dataSet"
                :key="data.id"
                :data="data"
-               @view-item="viewData"
-               @edit-item="editData"
-               @delete-item="deleteData"/>
+               @click:view-item="viewData(data)"
+               @click:edit-item="editData(data)"
+               @click:delete-item="deleteData(data)"/>
   </div>
 </template>
 
@@ -19,14 +20,14 @@
       },
     },
     methods: {
-      viewData() {
-        this.$emit("click:view-item");
+      viewData(data) {
+        console.log(data);
       },
-      editData() {
-        this.$emit("click:edit-item");
+      editData(data) {
+        console.log(data);
       },
-      deleteData() {
-        this.$emit("click:delete-item");
+      deleteData(data) {
+        console.log(data);
       },
     }
   }

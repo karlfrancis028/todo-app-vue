@@ -40,13 +40,13 @@
     },
     methods: {
       viewDataItem() {
-        this.$emit("view-item");
+        this.$emit("click:view-item");
       },
       editDataItem() {
-        this.$emit("edit-item");
+        this.$emit("click:edit-item");
       },
       deleteDataItem() {
-        this.$emit("delete-item");
+        this.$emit("click:delete-item");
       },
     }
   }
