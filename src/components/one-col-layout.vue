@@ -30,8 +30,8 @@
     },
     computed: {
       hideWhenRouteIsHome() {
-        return this.$route.path === '/' ? 'opacity: 0' : '';
-      }
+        return this.$route.path === '/' ? 'opacity: 0; pointer-events: none' : '';
+      },
     },
     methods: {
       handleBackBtn() {
