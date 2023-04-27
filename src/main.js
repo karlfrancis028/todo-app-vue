@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import components from './components/index';
+import './scss/global.scss';
 
 Object.keys(components).forEach((key) => {
   Vue.component(key, components[key]);
