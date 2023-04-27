@@ -2,7 +2,10 @@
   <div class="data-table">
     <data-item v-for="data in dataSet"
                :key="data.id"
-               :data="data"/>
+               :data="data"
+               @view-item="viewData"
+               @edit-item="editData"
+               @delete-item="deleteData"/>
   </div>
 </template>
 
@@ -15,6 +18,17 @@
         default: () => [],
       },
     },
+    methods: {
+      viewData() {
+        this.$emit("click:view-item");
+      },
+      editData() {
+        this.$emit("click:edit-item");
+      },
+      deleteData() {
+        this.$emit("click:delete-item");
+      },
+    }
   }
 </script>
 
