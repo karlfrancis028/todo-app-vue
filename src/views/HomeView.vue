@@ -4,7 +4,8 @@
       Todo App
     </div>
     <template slot="content">
-      <data-table :data-set="$options.todoData"/>
+      <data-table :data-labels="$options.headerLabels"
+                  :data-set="$options.todoData"/>
     </template>
   </one-col-layout>
 </template>
@@ -12,6 +13,7 @@
 <script>
   export default {
     name: "HomeView",
+    headerLabels: [ 'id', 'Todo', 'Status', 'View', 'Edit', 'Delete' ],
     todoData: [
       {
         id: 1,
