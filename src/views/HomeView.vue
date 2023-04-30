@@ -4,8 +4,7 @@
       Todo App
     </div>
     <template slot="toolbar">
-      <input-field :input-value="newTodo"
-                   @click:submit="addTodo"/>
+      <input-field @click:submit="addTodo"/>
     </template>
     <template slot="content">
       <data-table />
@@ -17,11 +16,6 @@
 import { mapActions } from 'vuex';
   export default {
     name: "HomeView",
-    data() {
-      return {
-        newTodo: '',
-      }
-    },
     methods: {
       ...mapActions({
         addTask: 'addTodo',
