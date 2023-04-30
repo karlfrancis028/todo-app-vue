@@ -3,37 +3,32 @@
     <div slot="title">
       Todo App
     </div>
+    <template slot="toolbar">
+      <input-field :input-value="newTodo"
+                   @click:submit="addTodo"/>
+    </template>
     <template slot="content">
-      <data-table :data-labels="$options.headerLabels"
-                  :data-set="$options.todoData"/>
+      <data-table />
     </template>
   </one-col-layout>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
   export default {
     name: "HomeView",
-    headerLabels: [ 'id', 'Todo', 'Status', 'View', 'Edit', 'Delete' ],
-    todoData: [
-      {
-        id: 1,
-        todo: 'Wash dishes',
-        status: 'Completed',
-      },
-      {
-        id: 2,
-        todo: 'Play valorant',
-        status: 'Active',
-      },
-      {
-        id: 3,
-        todo: 'Read books',
-        status: 'Active',
-      },
-    ]
+    data() {
+      return {
+        newTodo: '',
+      }
+    },
+    methods: {
+      ...mapActions({
+        addTask: 'addTodo',
+      }),
+      addTodo(value) {
+        this.addTask(value);
+      }
+    }
   }
 </script>
-
-<style>
-
-</style>

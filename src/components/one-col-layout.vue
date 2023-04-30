@@ -15,6 +15,9 @@
       <div class="one-col-layout__header__ghost-space">
       </div>
     </header>
+    <div class="one-col-layout__toolbar">
+      <slot name="toolbar"></slot>
+    </div>
     <main class="one-col-layout__main">
       <slot name="content"></slot>
     </main>
@@ -50,10 +53,9 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    background: rgb(250, 250, 250);
+    gap: 10px;
 
     &__header {
-      margin-bottom: 20px;
       flex-basis: 50px;
       display: flex;
       align-items: center;
@@ -87,6 +89,12 @@
       &__ghost-space {
         width: 33.3%;
       }
+    }
+
+    &__toolbar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     &__main {
