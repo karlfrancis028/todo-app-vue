@@ -47,11 +47,11 @@
         font-size: 1.1rem;
         background-color: transparent;
         border: none;
-        font-weight: 500;
+        font-weight: 600;
         cursor: pointer;
 
         &:hover {
-          color: rgb(37, 37, 37);
+          color: rgb(91, 91, 91);
         }
       }
     }
