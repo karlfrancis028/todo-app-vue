@@ -1,0 +1,26 @@
+//COLOR SETTINGS
+$colors: (
+  'black': #000000,
+  'white': #ffffff,
+  'btn-blue-default': #007bff,
+  'btn-blue-hover': #0062cc,
+  'btn-red-default': #e74c3c,
+  'btn-red-hover': #d53f31,
+  'btn-green-default': #2ecc71,
+  'btn-green-hover': #27ae60,
+);
+
+//CLASS CONTANTS
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color;
+  }
+
+  .text-#{$name} {
+    color: $color;
+  }
+}
+
+@function color($name) {
+  @return map-get($colors , $name);
+}
