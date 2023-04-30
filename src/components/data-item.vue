@@ -73,10 +73,10 @@
 
   .data-item {
     @extend %flex-row--center-xy;
-    padding: 12px;
+    padding: space(s);
     transition: background-color 0.3s ease;
     cursor: pointer;
-    gap: 8px;
+    gap: space(xs);
 
     &.completed {
       opacity: 0.7;
@@ -89,7 +89,7 @@
 
     &__info {
       @extend %flex-row--center-y;
-      gap: 12px;
+      gap: space(s);
       flex-grow: 1;
       overflow: hidden;
       white-space: nowrap;
@@ -103,14 +103,14 @@
 
     &__actions {
       @extend %flex-row--center-y;
-      gap: 6px;
+      gap: space(s);
 
       &__edit,
       &__del {
         border-radius: 8px;
         height: 34px;
         width: fit-content;
-        padding: 6px;
+        padding: space(xs)-2;
         border-radius: 8px;
         color: white;
       }
