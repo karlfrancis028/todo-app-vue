@@ -123,11 +123,11 @@
           font-size: 16px;
           color: #fff;
           border-radius: 4px;
-          background-color: rgb(86, 86, 255);
+          background-color: color(primary);
           transition: background-color 0.3s ease-in-out;
 
           &:hover {
-            background-color: rgb(52, 52, 255);
+            background-color: color(primary-hover);
           }
         }
       }
@@ -147,18 +147,18 @@
           transition: background-color 0.3s ease-in-out;
 
           &[type="submit"] {
-            background-color: rgba(86, 86, 255);
+            background-color: color(primary);
 
             &:hover {
-              background-color: rgb(52, 52, 255);
+              background-color: color(primary-hover);
             }
           }
 
           &[type="button"] {
-            background-color: #fd5b5b;
+            background-color: color(warning);
 
             &:hover {
-              background-color: #f93838;
+              background-color: color(warning-hover);
             }
           }
         }

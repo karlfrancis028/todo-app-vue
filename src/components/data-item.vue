@@ -53,9 +53,6 @@
       deleteItem() {
         this.$emit('click:delete-item');
       },
-      statusColorHandler(status) {
-        return status === 'Completed' ? 'borderColor: rgb(50, 194, 50)' : 'borderColor: rgb(86, 86, 255)'
-      },
       toggleItemStatus(item) {
         this.setTodoStatus(item);
       },
@@ -119,18 +116,18 @@
       }
 
       &__edit {
-        background-color: rgb(86, 86, 255);
+        background-color: color(primary);
 
         &:hover {
-          background-color: rgb(68, 68, 255);
+          background-color: color(primary-hover);
         }
       }
 
       &__del {
-        background-color: #fd5b5b;
+        background-color: color(warning);
 
         &:hover {
-          background-color: #f93838;
+          background-color: color(warning-hover);
         }
       }
     }
