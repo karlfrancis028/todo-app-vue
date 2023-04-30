@@ -50,6 +50,17 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },  
+    async editTodo({commit}, todo) {
+      console.log(todo);
+      try {
+        const response = await axios.put(`${apiEndpoint}/${todo.todoId}`, {
+          todo: todo.newTodo,
+        })
+        commit('EDIT_TODO', response.data)
+      } catch (error) {
+        console.log(error);
+      }
     },
     async deleteTodo({commit}, todoId) {
       try {
@@ -70,10 +81,15 @@ export default new Vuex.Store({
     SET_TODO_STATUS(state, todo) {
       const index = state.todos.findIndex((item) => item.id === todo.id);
       if (index !== -1) {
-        Vue.set(state.todos[index],
-                'status',
-                state.todos[index].status === 'Active' ? 'Completed' : 'Active');
-      } else console.log('No such item');
+        state.todos[index].status = state.todos[index].status === 'Active' ? 'Completed' : 'Active';
+      } else throw new Error;
+    },
+    EDIT_TODO(state, todo) {
+      const index = state.todos.findIndex((item) => item.id === todo.id);
+      console.log(index);
+      if(index !== -1) {
+        state.todos[index].todo = todo.todo;
+      } else throw new Error;
     },
     DELETE_TODO(state, todoId) {
       const index = state.todos.findIndex(todo => todo.id === todoId);

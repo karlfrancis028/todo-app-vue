@@ -36,8 +36,8 @@
     }
 
     &__body {
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 0 10px;
+      margin: 10px 0;
     }
 
     &__footer {

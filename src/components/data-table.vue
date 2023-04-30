@@ -13,7 +13,9 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import ViewTodoModal from './modals/view-todo-modal';
+  import EditTodoModal from './modals/edit-todo-modal';
   import DeleteTodoModal from './modals/delete-todo-modal';
+  
   export default {
     name: "data-table",
     computed: {
@@ -24,6 +26,7 @@
     methods: {
       ...mapActions({
         deleteTodo: 'deleteTodo',
+        editTodo: 'editTodo',
       }),
       handleData(action, data) {
         switch (action) {
@@ -36,7 +39,17 @@
             });
             break;
           case 'edit':
-            console.log('Edit', data);
+            this.$modal.open({
+              component: EditTodoModal,
+              props: {
+                data: data,
+              },
+              events: {
+                'confirm-todo-editing': (newTodo, todoId) => {
+                  this.editTodo({newTodo, todoId});
+                }
+              }
+            })
             break;
           case 'delete':
             this.$modal.open({
