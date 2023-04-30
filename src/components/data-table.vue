@@ -73,9 +73,10 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/scss/global.scss";
+
   .data-table {
-    display: flex;
-    flex-direction: column;
+    @extend %flex-col;
     gap: 8px;
   }
 </style>

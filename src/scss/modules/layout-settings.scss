@@ -1,0 +1,54 @@
+//ROWS
+%flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+%flex-row--center-x {
+  @extend %flex-row;
+  justify-content: center;
+}
+
+%flex-row--center-y {
+  @extend %flex-row;
+  align-items: center;
+}
+
+%flex-row--center-xy {
+  @extend %flex-row--center-x, %flex-row--center-y;
+}
+
+%flex-row--between {
+  @extend %flex-row;
+  justify-content: space-between;
+}
+
+%flex-row--around {
+  @extend %flex-row;
+  justify-content: space-around;
+}
+
+%flex-row--end {
+  @extend %flex-row;
+  justify-content: flex-end;
+}
+
+//COLUMNS
+%flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+%flex-col--center-x {
+  @extend %flex-col;
+  align-items: center;
+}
+
+%flex-col--center-y {
+  @extend %flex-col;
+  justify-content: center;
+}
+
+%flex-col--center-xy {
+  @extend %flex-col--center-x, %flex-col--center-y;
+}

@@ -38,9 +38,10 @@
 </script>
 
 <style scoped lang="scss">
+  @import "~@/scss/global.scss";
+
   .modal__body {
-    display: flex;
-    flex-direction: column;
+    @extend %flex-col;
     
     & > div {
       & > h4 {
@@ -56,6 +57,6 @@
   }
 
   .modal__footer {
-    justify-content: flex-end;
+    @extend %flex-row--end;
   }
 </style>

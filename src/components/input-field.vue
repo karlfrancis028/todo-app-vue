@@ -80,10 +80,11 @@
 </script>
 
 <style scoped lang="scss">
+  @import "~@/scss/global.scss";
+  
   .input-field {
+    @extend %flex-col;
     margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
     background-color: rgb(255, 255, 255);
 
     label {
@@ -93,9 +94,7 @@
     }
 
     &__body {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
+      @extend %flex-row--center-y;
       gap: 10px;
 
       input {
@@ -134,9 +133,8 @@
       }
 
       &--edit {
-        display: flex;
+        @extend %flex-row--between;
         width: 100%;
-        justify-content: space-between;
         margin-top: 10px;
 
         button {

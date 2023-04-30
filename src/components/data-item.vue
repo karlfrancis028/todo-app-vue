@@ -72,10 +72,10 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/scss/global.scss";
+
   .data-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @extend %flex-row--center-xy;
     padding: 12px;
     transition: background-color 0.3s ease;
     cursor: pointer;
@@ -91,8 +91,7 @@
     }
 
     &__info {
-      display: flex;
-      align-items: center;
+      @extend %flex-row--center-y;
       gap: 12px;
       flex-grow: 1;
       overflow: hidden;
@@ -106,8 +105,7 @@
     }
 
     &__actions {
-      display: flex;
-      align-items: center;
+      @extend %flex-row--center-y;
       gap: 6px;
 
       &__edit,
