@@ -45,7 +45,9 @@
 </script>
 
 <style scoped lang="scss">
+  @import "~@/scss/global.scss";
+
   .modal__footer {
-    justify-content: space-around;
+    @extend %flex-row--around;
   }
 </style>

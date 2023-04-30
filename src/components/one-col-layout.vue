@@ -45,25 +45,23 @@
 </script>
 
 <style scoped lang="scss">
+  @import "~@/scss/global.scss";
+
   .one-col-layout {
+    @extend %flex-col;
     max-width: 1024px;
     width: 100%;
     min-height: 100vh;
     margin: 0 auto;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
     gap: 10px;
 
     &__header {
+      @extend %flex-row--center-xy;
       flex-basis: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       &__btn {
-        display: flex;
-        align-items: center;
+        @extend %flex-row--center-y;
         cursor: pointer;
 
         &:hover {

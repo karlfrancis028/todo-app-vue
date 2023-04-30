@@ -14,7 +14,10 @@
 </script>
 
 <style scoped lang="scss">
+  @import "~@/scss/global.scss";
+  
   .modal {
+    @extend %flex-row--center-xy;
     position: fixed;
     top: 0;
     left: 0;
@@ -22,9 +25,6 @@
     right: 0;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.158);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     &__content {
       position: relative;
@@ -41,7 +41,7 @@
     }
 
     &__footer {
-      display: flex;
+      @extend %flex-row;
 
       & > button {
         font-size: 1.1rem;
