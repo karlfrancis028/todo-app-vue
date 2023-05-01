@@ -49,9 +49,10 @@ export default new Vuex.Store({
     },
     async addTodo({commit}, todo) {
       try {
-        const capitalizedTodo = todo.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        const capitalizedTodo = todo.todo.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         const response = await axios.post(todoApiEndpoint, {
           todo: capitalizedTodo,
+          category: todo.category,
           status: 'Active',
         });
         commit('ADD_TODO', response.data);
@@ -127,7 +128,6 @@ export default new Vuex.Store({
     },
     EDIT_TODO(state, todo) {
       const index = state.todos.findIndex((item) => item.id === todo.id);
-      console.log(index);
       if(index !== -1) {
         state.todos[index].todo = todo.todo;
       } else throw new Error;

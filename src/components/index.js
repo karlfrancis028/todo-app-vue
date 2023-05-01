@@ -4,7 +4,8 @@ import DataItem from './data-item';
 import Card from './card';
 import Checkbox from './checkbox';
 import ModalContainer from './modal-container';
-import InputField from './input-field';
+import TextFieldWithLabel from './text-field-with-label';
+import FormContainer from './form-container';
 
 export default {
   OneColLayout,
@@ -13,5 +14,6 @@ export default {
   Card,
   Checkbox,
   ModalContainer,
-  InputField,
+  TextFieldWithLabel,
+  FormContainer,
 }

@@ -1,12 +1,11 @@
 <template>
   <modal-container>
     <div class="modal__body">
-      <input-field label="Todo"
-                   field-placeholder="Edit todo"
-                   :initial-value="data.todo"
-                   @click:submit="editTask"
-                   for-editing
-                   button-text="Edit"/>
+      <form-container @click:submit="editTask" 
+                      for-editing>
+        <text-field-with-label label="Edit Todo"
+                               v-model="data.todo"/>
+      </form-container>
     </div>
   </modal-container>
 </template>
@@ -17,6 +16,7 @@
     data() {
       return {
         newTodo: '',
+        selectedCategory: this.data.category,
       }
     },
     props: {
@@ -26,12 +26,9 @@
       },
     },
     methods: {
-      closeModal() {
+      editTask() {
+        this.$emit('confirm-todo-editing', this.data.todo, this.data.id);
         this.$modal.close();
-      },
-      editTask(newTodo) {
-        this.$emit('confirm-todo-editing', newTodo, this.data.id);
-        this.closeModal();
       }
     }
   }
