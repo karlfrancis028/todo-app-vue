@@ -10,7 +10,8 @@
       <div class="home-view__content__cards">
         <card v-for="category in categories"
               :key="category.id" 
-              class="home-view__content__cards__card">
+              class="home-view__content__cards__card"
+              @click="routeToTodoList(category.category)">
           <b>{{ category.category }}</b>
           <p>{{ getCategoryTaskCount(category.category) }}</p>
         </card>
@@ -63,6 +64,14 @@
           }
         })
         this.addCategories(value);
+      },
+      routeToTodoList(category) {
+        this.$router.push({
+          path: '/todos',
+          query: { 
+            name: category,
+          }, 
+        })
       }
     }
   }
