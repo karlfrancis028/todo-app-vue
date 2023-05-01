@@ -49,5 +49,9 @@
 
   .modal__footer {
     @extend %flex-row--around;
+
+    button {
+      color: black;
+    }
   }
 </style>
