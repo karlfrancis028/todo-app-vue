@@ -1,14 +1,14 @@
 <template>
   <modal-container>
     <div class="modal__body">
-      <p>Are you sure you want to delete the todo '<b>{{ data.todo }}</b>'?</p>
+      <p>Are you sure you want to delete the category '<b>{{ data.category }}</b>'?</p>
       <br>
       <p>
         <b class="warning">NOTE</b>: Once you pressed '<b>Yes</b>' there is no way of getting the data back.
       </p>
     </div>
     <div class="modal__footer">
-      <button @click="deleteTask"
+      <button @click="deleteCategory"
               type="button">
         Yes
       </button>
@@ -22,7 +22,7 @@
 
 <script>
   export default {
-    name: "delete-todo-modal",
+    name: "delete-category-modal",
     props: {
       data: {
         type: Object,
@@ -33,8 +33,8 @@
       closeModal() {
         this.$modal.close();
       },
-      deleteTask() {
-        this.$emit('confirm-todo-deletion', this.data.id);
+      deleteCategory() {
+        this.$emit('confirm-category-deletion', this.data.id);
         this.closeModal();
       }
     }

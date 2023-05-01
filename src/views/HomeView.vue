@@ -10,18 +10,24 @@
       <div class="home-view__content__cards">
         <card class="home-view__content__cards__card home-view__content__cards__card-add"
               @click="addCategory">
-          <ph-plus :size="40" weight="bold"/>
+          <ph-plus :size="40" 
+                   weight="bold"/>
           <b>Add Category</b>
         </card>
         <card class="home-view__content__cards__card home-view__content__cards__card-all"
               @click="routeToTodoList('All')">
-          <ph-list-bullets :size="40" weight="bold"/>
+          <ph-list-bullets :size="40" 
+                           weight="bold"/>
           <b>View All</b>
         </card>
         <card v-for="category in categories"
               :key="category.id" 
               class="home-view__content__cards__card"
               @click="routeToTodoList(category.category)">
+          <ph-x :size="24" 
+                weight="bold" 
+                class="home-view__content__cards__card__icon"
+                @click.stop="deleteCategory(category)"/>
           <circular-progress-bar :completed="getNumberofTasksDonePerCategory(category.category)"
                                  :total="getCategoryTaskCount(category.category)">
             <b>{{ category.category }}</b>
@@ -36,14 +42,16 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex'
-  import { PhPlus, PhListBullets } from 'phosphor-vue';
+  import { PhPlus, PhListBullets, PhX } from 'phosphor-vue';
   import AddCategoryModal from '@/components/modals/add-category-modal';
+  import DeleteCategoryModal from '@/components/modals/delete-category-modal';
 
   export default {
     name: "HomeView",
     components: {
       PhPlus,
       PhListBullets,
+      PhX,
     },
     computed: {
       ...mapGetters({
@@ -54,6 +62,7 @@
     methods: {
       ...mapActions({
         addCategories: 'addCategory',
+        deleteCategories: 'deleteCategory',
       }),
       getCategoryTaskCount(category) {
         return this.dataSet.filter(data => data.category === category).length;
@@ -76,6 +85,19 @@
           }
         })
         this.addCategories(value);
+      },
+      deleteCategory(category) {
+        this.$modal.open({
+          component: DeleteCategoryModal,
+          props: {
+            data: category,
+          },
+          events: {
+            'confirm-category-deletion': (categoryId) => {
+              this.deleteCategories(categoryId);
+            }
+          }
+        })
       },
       routeToTodoList(category) {
         this.$router.push({
@@ -117,6 +139,7 @@
           @extend %flex-col--center-xy;
           padding: space(xl);
           height: 200px;
+          position: relative;
 
           &:hover {
             background-color: #f2f2f2;
@@ -126,6 +149,17 @@
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: space(xs)-4;
+          }
+
+          &__icon {
+            position: absolute;
+            top: space(xs)-2;
+            right: space(xs)-2;
+            transition: all .2s ease-in-out;
+
+            &:hover {
+              transform: scale(1.1);
+            }
           }
         }
 
