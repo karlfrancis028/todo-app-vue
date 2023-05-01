@@ -11,17 +11,22 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapActions } from 'vuex';
   import ViewTodoModal from './modals/view-todo-modal';
   import EditTodoModal from './modals/edit-todo-modal';
   import DeleteTodoModal from './modals/delete-todo-modal';
   
   export default {
     name: "data-table",
+    data() {
+      return {
+        dataCategory: this.$route.query.category,
+      }
+    },
     computed: {
-      ...mapGetters({
-        dataSet: 'getSortedTodos',
-      }),
+      dataSet() {
+        return this.$store.getters.getSortedTodos(this.dataCategory);
+      },
     },
     methods: {
       ...mapActions({
