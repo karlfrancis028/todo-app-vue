@@ -5,6 +5,7 @@ import Card from './card';
 import Checkbox from './checkbox';
 import ModalContainer from './modal-container';
 import InputField from './input-field';
+import CircularProgressBar from './circular-progress-bar';
 
 export default {
   OneColLayout,
@@ -14,4 +15,5 @@ export default {
   Checkbox,
   ModalContainer,
   InputField,
+  CircularProgressBar,
 }
