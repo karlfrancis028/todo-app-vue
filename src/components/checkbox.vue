@@ -48,8 +48,8 @@
     &::before {
       position: absolute;
       content: '\2713';
-      font-size: 46px;
-      line-height: 15px;
+      font-size: 34px;
+      line-height: 26px;
       color: #000;
       transform: scale(0);
       transition: 0.3s all ease-in-out;

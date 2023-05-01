@@ -9,9 +9,13 @@
   export default {
     mounted() {
       this.fetchTodos();
+      this.fetchCategories();
     },
     methods: {
-      ...mapActions({ fetchTodos: 'fetchTodos' })
+      ...mapActions({ 
+        fetchTodos: 'fetchTodos',
+        fetchCategories: 'fetchTodoCategories',
+      })
     }
   }
 </script>

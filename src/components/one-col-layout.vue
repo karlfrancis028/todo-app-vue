@@ -53,8 +53,8 @@
     width: 100%;
     min-height: 100vh;
     margin: 0 auto;
-    padding: 20px;
-    gap: 10px;
+    padding: space(m);
+    gap: space(s);
 
     &__header {
       @extend %flex-row--center-xy;
@@ -92,12 +92,12 @@
     &__toolbar {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: space(m);
     }
 
     &__main {
       flex: 1;
-      padding: 16px;
+      padding: space(base);
     }
   }
 </style>

@@ -28,7 +28,7 @@
 
     &__content {
       position: relative;
-      padding: 20px;
+      padding: space(m);
       background-color: #fff;
       max-width: 500px;
       width: 90%;
@@ -36,8 +36,8 @@
     }
 
     &__body {
-      padding: 0 10px;
-      margin: 10px 0;
+      padding: 0 space(s);
+      margin: space(s) 0;
     }
 
     &__footer {

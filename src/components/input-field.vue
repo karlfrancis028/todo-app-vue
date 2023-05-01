@@ -17,7 +17,7 @@
            class="input-field__body--edit">
         <button type="submit"
                 @click="submitData">
-          Edit
+          {{ buttonText }}
         </button>
         <button type="button"
                 @click="closeModal">
@@ -88,17 +88,17 @@
     background-color: rgb(255, 255, 255);
 
     label {
-      margin-bottom: 2px;
+      margin-bottom: space(xs);
       font-size: 20px;
-      margin-left: 4px;
+      margin-left: space(xs);
     }
 
     &__body {
       @extend %flex-row--center-y;
-      gap: 10px;
+      gap: space(s);
 
       input {
-        padding: 4px 12px;
+        padding: space(xs) space(s);
         border-radius: 8px;
         font-size: 16px;
         border: 2px solid transparent;
@@ -119,15 +119,15 @@
           flex-basis: 10%;
           border: none;
           cursor: pointer;
-          padding: 6px 20px;
+          padding: space(xs) space(m);
           font-size: 16px;
           color: #fff;
           border-radius: 4px;
-          background-color: rgb(86, 86, 255);
+          background-color: color(primary);
           transition: background-color 0.3s ease-in-out;
 
           &:hover {
-            background-color: rgb(52, 52, 255);
+            background-color: color(primary-hover);
           }
         }
       }
@@ -135,10 +135,10 @@
       &--edit {
         @extend %flex-row--between;
         width: 100%;
-        margin-top: 10px;
+        margin-top: space(s);
 
         button {
-          padding: 6px 20px;
+          padding: space(xs) space(m);
           width: 100px;
           border: none;
           font-size: 16px;
@@ -147,18 +147,18 @@
           transition: background-color 0.3s ease-in-out;
 
           &[type="submit"] {
-            background-color: rgba(86, 86, 255);
+            background-color: color(primary);
 
             &:hover {
-              background-color: rgb(52, 52, 255);
+              background-color: color(primary-hover);
             }
           }
 
           &[type="button"] {
-            background-color: #fd5b5b;
+            background-color: color(warning);
 
             &:hover {
-              background-color: #f93838;
+              background-color: color(warning-hover);
             }
           }
         }

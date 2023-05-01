@@ -5,7 +5,8 @@
                    field-placeholder="Edit todo"
                    :initial-value="data.todo"
                    @click:submit="editTask"
-                   for-editing/>
+                   for-editing
+                   button-text="Edit"/>
     </div>
   </modal-container>
 </template>

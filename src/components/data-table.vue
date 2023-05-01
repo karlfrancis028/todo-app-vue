@@ -77,6 +77,6 @@
 
   .data-table {
     @extend %flex-col;
-    gap: 8px;
+    gap: space(xs);
   }
 </style>

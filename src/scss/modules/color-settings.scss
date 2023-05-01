@@ -1,0 +1,24 @@
+//COLOR SETTINGS
+$colors: (
+  'primary': #5656FF,
+  'primary-hover': #4444FF,
+  'warning': #fd5b5b,
+  'warning-hover': #f93838,
+  'success': #2ecc71,
+  'success-hover': #27ae60,
+);
+
+//CLASS CONTANTS
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color;
+  }
+
+  .text-#{$name} {
+    color: $color;
+  }
+}
+
+@function color($name) {
+  @return map-get($colors , $name);
+}
