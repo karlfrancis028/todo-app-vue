@@ -12,7 +12,11 @@
               :key="category.id" 
               class="home-view__content__cards__card">
           <b>{{ category.category }}</b>
-          <p>{{ getCategoryTaskCount(category.category) }} Task/s</p>
+          <p>{{ getCategoryTaskCount(category.category) }}</p>
+        </card>
+        <card class="home-view__content__cards__card home-view__content__cards__card-add">
+          <ph-plus :size="40" weight="bold" class="icon" />
+          <b>Add Category</b>
         </card>
       </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     </template>
@@ -21,9 +25,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { PhPlus } from 'phosphor-vue';
 
   export default {
     name: "HomeView",
+    components: {
+      PhPlus,
+    },
     computed: {
       ...mapGetters({
         dataSet: 'getTodos',
@@ -32,8 +40,12 @@
     },
     methods: {
       getCategoryTaskCount(category) {
-        return this.dataSet.filter(data => data.category === category).length;
-      }
+        const getTaskCountPerCategory = this.dataSet.filter(data => data.category === category);
+
+        return getTaskCountPerCategory.length === 1 ?
+               `${getTaskCountPerCategory.length} task` :
+               `${getTaskCountPerCategory.length} tasks`
+      },
     }
   }
 </script>
@@ -65,9 +77,24 @@
           padding: space(xl);
           height: 200px;
 
+          &:hover {
+            background-color: #f2f2f2;
+          }
+
           & > b {
             font-size: 1.25rem;
             font-weight: 700;
+          }
+        }
+
+        &__card-add {
+          @extend %flex-col--center-xy;
+          gap: space(xs);
+          background-color: color(primary);
+          color: #fff;
+
+          &:hover {
+            background-color: color(primary-hover);
           }
         }
       }

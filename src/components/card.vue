@@ -21,9 +21,5 @@
     border-radius: 8px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), -2px -2px 4px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-
-    &:hover {
-      background-color: #f2f2f2;
-    }
   }
 </style>
