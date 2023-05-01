@@ -8,6 +8,11 @@
         <p>These are your todo list</p>
       </div>
       <div class="home-view__content__cards">
+        <card class="home-view__content__cards__card home-view__content__cards__card-all"
+              @click="routeToTodoList('All')">
+          <ph-list-bullets :size="40" weight="bold"/>
+          <b>View All</b>
+        </card>
         <card v-for="category in categories"
               :key="category.id" 
               class="home-view__content__cards__card"
@@ -17,7 +22,7 @@
         </card>
         <card class="home-view__content__cards__card home-view__content__cards__card-add"
               @click="addCategory">
-          <ph-plus :size="40" weight="bold" class="icon" />
+          <ph-plus :size="40" weight="bold"/>
           <b>Add Category</b>
         </card>
       </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
@@ -27,13 +32,14 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex'
-  import { PhPlus } from 'phosphor-vue';
+  import { PhPlus, PhListBullets } from 'phosphor-vue';
   import AddCategoryModal from '@/components/modals/add-category-modal';
 
   export default {
     name: "HomeView",
     components: {
       PhPlus,
+      PhListBullets,
     },
     computed: {
       ...mapGetters({
@@ -69,7 +75,7 @@
         this.$router.push({
           path: '/todos',
           query: { 
-            name: category,
+            category: category,
           }, 
         })
       }
@@ -102,6 +108,7 @@
 
 
         &__card {
+          @extend %flex-col--center-xy;
           padding: space(xl);
           height: 200px;
 
@@ -112,6 +119,7 @@
           & > b {
             font-size: 1.25rem;
             font-weight: 700;
+            margin-bottom: space(xs)-4;
           }
         }
 
@@ -123,6 +131,17 @@
 
           &:hover {
             background-color: color(primary-hover);
+          }
+        }
+
+        &__card-all {
+          @extend %flex-col--center-xy;
+          gap: space(xs);
+          background-color: color(success);
+          color: #fff;
+
+          &:hover {
+            background-color: color(success-hover);
           }
         }
 

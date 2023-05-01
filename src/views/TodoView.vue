@@ -1,7 +1,7 @@
 <template>
   <one-col-layout @click:prev-btn="backToHome">
     <div slot="title">
-      Todos
+      {{ computedTitle }}
     </div>
     <template slot="toolbar">
       <input-field @click:submit="addTodo"/>
@@ -16,6 +16,11 @@
 import { mapActions } from 'vuex';
   export default {
     name: "TodoView",
+    computed: {
+      computedTitle() {
+        return this.$route.query.category === 'All' ? 'Todos' : this.$route.query.category;
+      }
+    },
     methods: {
       ...mapActions({
         addTask: 'addTodo',

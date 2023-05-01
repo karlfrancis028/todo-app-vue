@@ -15,13 +15,24 @@ export default new Vuex.Store({
   getters: {
     //TODOS
     getTodos: state => state.todos,
-    getSortedTodos: (state) => {
+    getSortedTodos: (state) => (category) => {
+      if(category !== 'All') {
+        const filterByCategory = state.todos.filter(todo => todo.category === category);
+        const sortById = filterByCategory.sort((a, b) => a.id - b.id);
+        
+        return sortById.sort((a, b) => {
+          return a.status === 'Active' && b.status === 'Completed' ? -1 :
+                  a.status === 'Completed' && b.status === 'Active' ? 1 : 0;
+        });
+      }
+
       const sortById = state.todos.sort((a, b) => a.id - b.id);
-      
-      return sortById.sort((a, b) => {
-        return a.status === 'Active' && b.status === 'Completed' ? -1 :
-               a.status === 'Completed' && b.status === 'Active' ? 1 : 0;
+        
+        return sortById.sort((a, b) => {
+          return a.status === 'Active' && b.status === 'Completed' ? -1 :
+                  a.status === 'Completed' && b.status === 'Active' ? 1 : 0;
       });
+
     },
     //TODO CATEGORIES
     getCategories: state => state.todoCategories,
