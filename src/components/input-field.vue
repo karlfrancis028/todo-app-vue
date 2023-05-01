@@ -17,7 +17,7 @@
            class="input-field__body--edit">
         <button type="submit"
                 @click="submitData">
-          Edit
+          {{ buttonText }}
         </button>
         <button type="button"
                 @click="closeModal">

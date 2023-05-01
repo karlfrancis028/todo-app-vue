@@ -1,7 +1,7 @@
 <template>
   <one-col-layout>
     <div slot="title">
-      My Todo App
+      Todo App
     </div>
     <template slot="content">
       <div class="home-view__content__title">
@@ -14,7 +14,8 @@
           <b>{{ category.category }}</b>
           <p>{{ getCategoryTaskCount(category.category) }}</p>
         </card>
-        <card class="home-view__content__cards__card home-view__content__cards__card-add">
+        <card class="home-view__content__cards__card home-view__content__cards__card-add"
+              @click="addCategory">
           <ph-plus :size="40" weight="bold" class="icon" />
           <b>Add Category</b>
         </card>
@@ -24,8 +25,9 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   import { PhPlus } from 'phosphor-vue';
+  import AddCategoryModal from '@/components/modals/add-category-modal';
 
   export default {
     name: "HomeView",
@@ -39,13 +41,29 @@
       }),
     },
     methods: {
+      ...mapActions({
+        addCategories: 'addCategory',
+      }),
       getCategoryTaskCount(category) {
         const getTaskCountPerCategory = this.dataSet.filter(data => data.category === category);
 
         return getTaskCountPerCategory.length === 1 ?
                `${getTaskCountPerCategory.length} task` :
-               `${getTaskCountPerCategory.length} tasks`
+               getTaskCountPerCategory.length <= 0 ?
+               'No task here.' :
+               `${getTaskCountPerCategory.length} tasks`;
       },
+      addCategory(value) {
+        this.$modal.open({
+          component: AddCategoryModal,
+          events: {
+            'confirm-add-category': (category) => {
+              this.addCategories(category);
+            }
+          }
+        })
+        this.addCategories(value);
+      }
     }
   }
 </script>
@@ -73,6 +91,7 @@
         grid-gap: 30px;
         padding: space(xl);
 
+
         &__card {
           padding: space(xl);
           height: 200px;
@@ -96,6 +115,10 @@
           &:hover {
             background-color: color(primary-hover);
           }
+        }
+
+        @media only screen and (max-width: 700px) {
+          grid-template-columns: repeat(1, 300px);
         }
       }
     }

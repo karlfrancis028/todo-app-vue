@@ -85,6 +85,17 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },
+    async addCategory({commit}, category) {
+      try {
+        const capitalizedCategory = category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        const response = await axios.post(todoApiEndpoint, {
+          category: capitalizedCategory
+        });
+        commit('ADD_CATEGORY', response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   mutations: {
@@ -115,6 +126,9 @@ export default new Vuex.Store({
     //TODO CATEGORIES
     SET_TODO_CATEGORIES(state, categories) {
       state.todoCategories = categories;
-    }
+    },
+    ADD_CATEGORY(state, category) {
+      state.todoCategories.push(category);
+    },
   },
 })
