@@ -110,6 +110,14 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },
+    async deleteCategory({commit}, categoryId) {
+      try {
+        await axios.delete(`${categoriesApiEndpoint}/${categoryId}`);
+        commit('DELETE_CATEGORY', categoryId);
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   mutations: {
@@ -143,5 +151,9 @@ export default new Vuex.Store({
     ADD_CATEGORY(state, category) {
       state.todoCategories.push(category);
     },
+    DELETE_CATEGORY(state, categoryId) {
+      const index = state.todoCategories.findIndex(category => category.id === categoryId);
+      state.todoCategories.splice(index, 1);
+    }
   },
 })
