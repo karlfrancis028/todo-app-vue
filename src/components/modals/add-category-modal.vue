@@ -17,6 +17,7 @@ import { mapActions } from 'vuex'
       ...mapActions({ addCategories: 'addCategory' }),
       addCategory(value) {
         this.$emit('confirm-add-category', value);
+        this.$modal.close();
       }
     }
   }

@@ -59,7 +59,6 @@ export default new Vuex.Store({
       }
     },  
     async editTodo({commit}, todo) {
-      console.log(todo);
       try {
         const response = await axios.put(`${todoApiEndpoint}/${todo.todoId}`, {
           todo: todo.newTodo,
@@ -88,11 +87,14 @@ export default new Vuex.Store({
     },
     async addCategory({commit}, category) {
       try {
-        const capitalizedCategory = category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        const response = await axios.post(todoApiEndpoint, {
-          category: capitalizedCategory
-        });
-        commit('ADD_CATEGORY', response.data);
+        if (category !== undefined) {
+          const capitalizedCategory = category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+          console.log('2', capitalizedCategory);
+          const response = await axios.post(categoriesApiEndpoint, {
+            category: capitalizedCategory,
+          });
+          commit('ADD_CATEGORY', response.data);
+        }
       } catch (error) {
         console.log(error);
       }
