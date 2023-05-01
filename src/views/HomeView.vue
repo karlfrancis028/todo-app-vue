@@ -17,8 +17,11 @@
               :key="category.id" 
               class="home-view__content__cards__card"
               @click="routeToTodoList(category.category)">
-          <b>{{ category.category }}</b>
-          <p>{{ getCategoryTaskCount(category.category) }}</p>
+          <circular-progress-bar :completed="getNumberofTasksDonePerCategory(category.category)"
+                                 :total="getCategoryTaskCount(category.category)">
+            <b>{{ category.category }}</b>
+            <p>{{ taskStringPluralization(category.category) }}</p>
+          </circular-progress-bar>
         </card>
         <card class="home-view__content__cards__card home-view__content__cards__card-add"
               @click="addCategory">
@@ -52,13 +55,15 @@
         addCategories: 'addCategory',
       }),
       getCategoryTaskCount(category) {
-        const getTaskCountPerCategory = this.dataSet.filter(data => data.category === category);
+        return this.dataSet.filter(data => data.category === category).length;
+      },
+      getNumberofTasksDonePerCategory(category) {
+        return this.dataSet.filter(data => data.category === category && data.status === 'Completed').length;
+      },
+      taskStringPluralization(category) {
+        const filteredTaskLength = this.dataSet.filter(data => data.category === category).length;
 
-        return getTaskCountPerCategory.length === 1 ?
-               `${getTaskCountPerCategory.length} task` :
-               getTaskCountPerCategory.length <= 0 ?
-               'No task here.' :
-               `${getTaskCountPerCategory.length} tasks`;
+        return filteredTaskLength > 1 ? `${filteredTaskLength} tasks` : `${filteredTaskLength} task`
       },
       addCategory(value) {
         this.$modal.open({
