@@ -8,6 +8,11 @@
         <p>These are your todo list</p>
       </div>
       <div class="home-view__content__cards">
+        <card class="home-view__content__cards__card home-view__content__cards__card-add"
+              @click="addCategory">
+          <ph-plus :size="40" weight="bold"/>
+          <b>Add Category</b>
+        </card>
         <card class="home-view__content__cards__card home-view__content__cards__card-all"
               @click="routeToTodoList('All')">
           <ph-list-bullets :size="40" weight="bold"/>
@@ -17,14 +22,13 @@
               :key="category.id" 
               class="home-view__content__cards__card"
               @click="routeToTodoList(category.category)">
-          <b>{{ category.category }}</b>
-          <p>{{ getCategoryTaskCount(category.category) }}</p>
+          <circular-progress-bar :completed="getNumberofTasksDonePerCategory(category.category)"
+                                 :total="getCategoryTaskCount(category.category)">
+            <b>{{ category.category }}</b>
+            <p>{{ taskStringPluralization(category.category) }}</p>
+          </circular-progress-bar>
         </card>
-        <card class="home-view__content__cards__card home-view__content__cards__card-add"
-              @click="addCategory">
-          <ph-plus :size="40" weight="bold"/>
-          <b>Add Category</b>
-        </card>
+        
       </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     </template>
   </one-col-layout>
@@ -52,13 +56,15 @@
         addCategories: 'addCategory',
       }),
       getCategoryTaskCount(category) {
-        const getTaskCountPerCategory = this.dataSet.filter(data => data.category === category);
+        return this.dataSet.filter(data => data.category === category).length;
+      },
+      getNumberofTasksDonePerCategory(category) {
+        return this.dataSet.filter(data => data.category === category && data.status === 'Completed').length;
+      },
+      taskStringPluralization(category) {
+        const filteredTaskLength = this.dataSet.filter(data => data.category === category).length;
 
-        return getTaskCountPerCategory.length === 1 ?
-               `${getTaskCountPerCategory.length} task` :
-               getTaskCountPerCategory.length <= 0 ?
-               'No task here.' :
-               `${getTaskCountPerCategory.length} tasks`;
+        return filteredTaskLength > 1 ? `${filteredTaskLength} tasks` : `${filteredTaskLength} task`
       },
       addCategory(value) {
         this.$modal.open({
