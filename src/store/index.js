@@ -4,13 +4,17 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const apiEndpoint = 'https://63e618ca83c0e85a868c9732.mockapi.io/tasks';
+const todoApiEndpoint = 'https://63e618ca83c0e85a868c9732.mockapi.io/tasks';
+const categoriesApiEndpoint = 'https://644f87f0b61a9f0c4d24c4d8.mockapi.io/todo-categories';
 
 export default new Vuex.Store({
   state: {
     todos: [],
+    todoCategories: [],
   },
   getters: {
+    //TODOS
+    getTodos: state => state.todos,
     getSortedTodos: (state) => {
       const sortById = state.todos.sort((a, b) => a.id - b.id);
       
@@ -19,11 +23,14 @@ export default new Vuex.Store({
                a.status === 'Completed' && b.status === 'Active' ? 1 : 0;
       });
     },
+    //TODO CATEGORIES
+    getCategories: state => state.todoCategories,
   },
   actions: {
+    //TODOS
     async fetchTodos({commit}) {
       try {
-        const response = await axios.get(apiEndpoint);
+        const response = await axios.get(todoApiEndpoint);
         commit('SET_TODOS', response.data);
       } catch (error) {
         console.log(error);
@@ -32,7 +39,7 @@ export default new Vuex.Store({
     async addTodo({commit}, todo) {
       try {
         const capitalizedTodo = todo.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        const response = await axios.post(apiEndpoint, {
+        const response = await axios.post(todoApiEndpoint, {
           todo: capitalizedTodo,
           status: 'Active',
         });
@@ -43,7 +50,7 @@ export default new Vuex.Store({
     },
     async setTodoStatus({commit}, todo) {
       try {
-        const response = await axios.put(`${apiEndpoint}/${todo.id}`, {
+        const response = await axios.put(`${todoApiEndpoint}/${todo.id}`, {
           status: todo.status === 'Active' ? 'Completed' : 'Active',
         });
         commit('SET_TODO_STATUS', response.data);
@@ -54,7 +61,7 @@ export default new Vuex.Store({
     async editTodo({commit}, todo) {
       console.log(todo);
       try {
-        const response = await axios.put(`${apiEndpoint}/${todo.todoId}`, {
+        const response = await axios.put(`${todoApiEndpoint}/${todo.todoId}`, {
           todo: todo.newTodo,
         })
         commit('EDIT_TODO', response.data)
@@ -64,14 +71,24 @@ export default new Vuex.Store({
     },
     async deleteTodo({commit}, todoId) {
       try {
-        await axios.delete(`${apiEndpoint}/${todoId}`);
+        await axios.delete(`${todoApiEndpoint}/${todoId}`);
         commit('DELETE_TODO', todoId);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //TODO CATEGORIES
+    async fetchTodoCategories({commit}) {
+      try {
+        const response = await axios.get(categoriesApiEndpoint);
+        commit('SET_TODO_CATEGORIES', response.data);
       } catch (error) {
         console.log(error);
       }
     }
   },
   mutations: {
+    //TODOS
     SET_TODOS(state, todos) {
       state.todos = todos;
     },
@@ -95,5 +112,9 @@ export default new Vuex.Store({
       const index = state.todos.findIndex(todo => todo.id === todoId);
       state.todos.splice(index, 1);
     },
+    //TODO CATEGORIES
+    SET_TODO_CATEGORIES(state, categories) {
+      state.todoCategories = categories;
+    }
   },
 })

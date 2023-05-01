@@ -75,7 +75,6 @@
     @extend %flex-row--center-xy;
     padding: space(s);
     transition: background-color 0.3s ease;
-    cursor: pointer;
     gap: space(xs);
 
     &.completed {

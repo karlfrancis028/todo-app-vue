@@ -1,7 +1,7 @@
 <template>
   <one-col-layout @click:prev-btn="backToHome">
     <div slot="title">
-      Todo App
+      Todos
     </div>
     <template slot="toolbar">
       <input-field @click:submit="addTodo"/>
