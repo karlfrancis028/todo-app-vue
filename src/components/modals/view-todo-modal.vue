@@ -1,17 +1,25 @@
 <template>
   <modal-container>
     <div class="modal__body">
-      <div>
-        <h4>ID</h4>
-        <p>{{ data.id }}</p>
+      <div class="modal__body__col">
+        <div>
+          <h4>ID</h4>
+          <p>{{ data.id }}</p>
+        </div>
+        <div>
+          <h4>Task</h4>
+          <p>{{ data.todo }}</p>
+        </div>
       </div>
-      <div>
-        <h4>Task</h4>
-        <p>{{ data.todo }}</p>
-      </div>
-      <div>
-        <h4>Status</h4>
-        <p>{{ data.status }}</p>
+      <div class="modal__body__col">
+        <div>
+          <h4>Category</h4>
+          <p>{{ data.category }}</p>
+        </div>
+        <div>
+          <h4>Status</h4>
+          <p>{{ data.status }}</p>
+        </div>
       </div>
     </div>
     <div class="modal__footer">
@@ -41,17 +49,23 @@
   @import "~@/scss/global.scss";
 
   .modal__body {
-    @extend %flex-col;
-    
-    & > div {
-      & > h4 {
-        color: rgb(37, 37, 37);
-        font-weight: 600;
-        font-size: 1.25rem;
-      }
+    @extend %flex-row--between;
 
-      &:not(:last-child) {
-        margin-bottom: 10px;
+    &__col {
+      @extend %flex-col;
+      gap: space(s);
+      flex-basis: 50%;
+
+      & > div {
+        & > h4 {
+          color: rgb(37, 37, 37);
+          font-weight: 600;
+          font-size: 1.25rem;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
       }
     }
   }
