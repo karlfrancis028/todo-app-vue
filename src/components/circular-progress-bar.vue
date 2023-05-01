@@ -4,7 +4,8 @@
          class="circular-progress-bar__svg">
       <circle cx="50" cy="50" r="40"
               class="circular-progress-bar__background"/>
-      <circle cx="50" cy="50" r="40"
+      <circle v-if="isThereTaskAvailable"
+              cx="50" cy="50" r="40"
               class="circular-progress-bar__progress"
               :stroke-dasharray="(Math.PI * 2 * 40)"
               :stroke-dashoffset="(Math.PI * 2 * 40) * (1 - value / 100)"/>
@@ -31,6 +32,9 @@
     computed: {
       value() {
         return Math.round(this.completed / this.total * 100);
+      },
+      isThereTaskAvailable() {
+        return this.total !== 0;
       }
     }
   }

@@ -106,7 +106,7 @@
 
       &__cards {
         display: grid;
-        grid-template-columns: repeat(2, 300px);
+        grid-template-columns: repeat(3, 250px);
         justify-content: center;
         align-items: center;
         grid-gap: 30px;
@@ -151,8 +151,12 @@
           }
         }
 
-        @media only screen and (max-width: 700px) {
-          grid-template-columns: repeat(1, 300px);
+        @media only screen and (max-width: 820px) {
+          grid-template-columns: repeat(2, 250px);
+        }
+
+        @media only screen and (max-width: 576px) {
+          grid-template-columns: repeat(1, 250px);
         }
       }
     }
