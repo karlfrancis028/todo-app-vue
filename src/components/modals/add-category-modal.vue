@@ -1,9 +1,11 @@
 <template>
   <modal-container>
     <div class="modal__body">
-      <text-field-with-label label="Category"
-                             field-placeholder="Add your own Category"
-                             :initial-value="newCategory"/>
+      <form-container @click:submit="addCategory" for-editing>
+        <text-field-with-label v-model="newCategory"
+                               label="Add Category"
+                               field-placeholder="Add your own Category"/>
+      </form-container>
     </div>
   </modal-container>
 </template>
@@ -19,8 +21,8 @@ import { mapActions } from 'vuex'
     },
     methods: {
       ...mapActions({ addCategories: 'addCategory' }),
-      addCategory(value) {
-        this.$emit('confirm-add-category', value);
+      addCategory() {
+        this.$emit('confirm-add-category', this.newCategory);
         this.$modal.close();
       }
     }

@@ -49,7 +49,7 @@
 
   .one-col-layout {
     @extend %flex-col;
-    max-width: 1024px;
+    max-width: 1366px;
     width: 100%;
     min-height: 100vh;
     margin: 0 auto;
