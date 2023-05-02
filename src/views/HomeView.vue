@@ -41,13 +41,13 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
   import { PhPlus, PhListBullets, PhX } from 'phosphor-vue';
-  import AddCategoryModal from '@/components/modals/add-category-modal';
-  import DeleteCategoryModal from '@/components/modals/delete-category-modal';
+  import { addCategory, deleteCategory } from '@/mixins/todo-functions-mixin';
 
   export default {
     name: "HomeView",
+    mixins: [addCategory, deleteCategory],
     components: {
       PhPlus,
       PhListBullets,
@@ -60,10 +60,6 @@
       }),
     },
     methods: {
-      ...mapActions({
-        addCategories: 'addCategory',
-        deleteCategories: 'deleteCategory',
-      }),
       getCategoryTaskCount(category) {
         return this.dataSet.filter(data => data.category === category).length;
       },
@@ -74,30 +70,6 @@
         const filteredTaskLength = this.dataSet.filter(data => data.category === category).length;
 
         return filteredTaskLength > 1 ? `${filteredTaskLength} tasks` : `${filteredTaskLength} task`
-      },
-      addCategory(value) {
-        this.$modal.open({
-          component: AddCategoryModal,
-          events: {
-            'confirm-add-category': (category) => {
-              this.addCategories(category);
-            }
-          }
-        })
-        this.addCategories(value);
-      },
-      deleteCategory(category) {
-        this.$modal.open({
-          component: DeleteCategoryModal,
-          props: {
-            data: category,
-          },
-          events: {
-            'confirm-category-deletion': (categoryId) => {
-              this.deleteCategories(categoryId);
-            }
-          }
-        })
       },
       routeToTodoList(category) {
         this.$router.push({

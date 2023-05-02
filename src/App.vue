@@ -5,17 +5,8 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { fetchData } from '@/mixins/todo-functions-mixin';
   export default {
-    mounted() {
-      this.fetchTodos();
-      this.fetchCategories();
-    },
-    methods: {
-      ...mapActions({ 
-        fetchTodos: 'fetchTodos',
-        fetchCategories: 'fetchTodoCategories',
-      })
-    }
+    mixins: [fetchData],
   }
 </script>
