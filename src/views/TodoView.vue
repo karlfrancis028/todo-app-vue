@@ -26,15 +26,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
+import { addTodo } from '@/mixins/todo-functions-mixin';
   export default {
     name: "TodoView",
-    data() {
-      return {
-        newTodo: '',
-        selectedCategory: '',
-      }
-    },
+    mixins: [addTodo],
     computed: {
       ...mapGetters({
         categories: 'getCategories',
@@ -44,14 +40,6 @@ import { mapActions, mapGetters } from 'vuex';
       }
     },
     methods: {
-      ...mapActions({
-        addTask: 'addTodo',
-      }),
-      addTodo() {
-        this.addTask({ todo: this.newTodo, category: this.selectedCategory});
-        this.newTodo = '';
-        this.selectedCategory = '';
-      },
       backToHome() {
         this.$router.push('/');
       }

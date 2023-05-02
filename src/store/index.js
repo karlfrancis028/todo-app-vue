@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import { httpRequest } from '@/services';
 
 Vue.use(Vuex)
 
@@ -41,8 +41,8 @@ export default new Vuex.Store({
     //TODOS
     async fetchTodos({commit}) {
       try {
-        const response = await axios.get(todoApiEndpoint);
-        commit('SET_TODOS', response.data);
+        const payload = await httpRequest('get', todoApiEndpoint);
+        commit('SET_TODOS', payload);
       } catch (error) {
         console.log(error);
       } 
@@ -50,39 +50,39 @@ export default new Vuex.Store({
     async addTodo({commit}, todo) {
       try {
         const capitalizedTodo = todo.todo.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        const response = await axios.post(todoApiEndpoint, {
+        const payload = await httpRequest('post', todoApiEndpoint, {
           todo: capitalizedTodo,
           category: todo.category,
           status: 'Active',
         });
-        commit('ADD_TODO', response.data);
+        commit('ADD_TODO', payload);
       } catch (error) {
         console.log(error);
       }
     },
     async setTodoStatus({commit}, todo) {
       try {
-        const response = await axios.put(`${todoApiEndpoint}/${todo.id}`, {
+        const payload = await httpRequest('put', `${todoApiEndpoint}/${todo.id}`, {
           status: todo.status === 'Active' ? 'Completed' : 'Active',
         });
-        commit('SET_TODO_STATUS', response.data);
+        commit('SET_TODO_STATUS', payload);
       } catch (error) {
         console.log(error);
       }
     },  
     async editTodo({commit}, todo) {
       try {
-        const response = await axios.put(`${todoApiEndpoint}/${todo.todoId}`, {
+        const payload = await httpRequest('put', `${todoApiEndpoint}/${todo.todoId}`, {
           todo: todo.newTodo,
         })
-        commit('EDIT_TODO', response.data)
+        commit('EDIT_TODO', payload)
       } catch (error) {
         console.log(error);
       }
     },
     async deleteTodo({commit}, todoId) {
       try {
-        await axios.delete(`${todoApiEndpoint}/${todoId}`);
+        await httpRequest('delete', `${todoApiEndpoint}/${todoId}`);
         commit('DELETE_TODO', todoId);
       } catch (error) {
         console.log(error);
@@ -91,8 +91,8 @@ export default new Vuex.Store({
     //TODO CATEGORIES
     async fetchTodoCategories({commit}) {
       try {
-        const response = await axios.get(categoriesApiEndpoint);
-        commit('SET_TODO_CATEGORIES', response.data);
+        const payload = await httpRequest('get', categoriesApiEndpoint);
+        commit('SET_TODO_CATEGORIES', payload);
       } catch (error) {
         console.log(error);
       }
@@ -101,11 +101,10 @@ export default new Vuex.Store({
       try {
         if (category !== undefined) {
           const capitalizedCategory = category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-          console.log('2', capitalizedCategory);
-          const response = await axios.post(categoriesApiEndpoint, {
+          const payload = await httpRequest('post', categoriesApiEndpoint, {
             category: capitalizedCategory,
           });
-          commit('ADD_CATEGORY', response.data);
+          commit('ADD_CATEGORY', payload);
         }
       } catch (error) {
         console.log(error);
@@ -113,7 +112,7 @@ export default new Vuex.Store({
     },
     async deleteCategory({commit}, categoryId) {
       try {
-        await axios.delete(`${categoriesApiEndpoint}/${categoryId}`);
+        await httpRequest('delete', `${categoriesApiEndpoint}/${categoryId}`);
         commit('DELETE_CATEGORY', categoryId);
       } catch (error) {
         console.log(error);
