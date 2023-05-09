@@ -7,6 +7,7 @@ import ModalContainer from './modal-container';
 import TextFieldWithLabel from './text-field-with-label';
 import FormContainer from './form-container';
 import CircularProgressBar from './circular-progress-bar';
+import Accordion from './accordion';
 
 export default {
   OneColLayout,
@@ -18,4 +19,5 @@ export default {
   TextFieldWithLabel,
   FormContainer,
   CircularProgressBar,
+  Accordion,
 }
