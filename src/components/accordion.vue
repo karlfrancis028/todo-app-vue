@@ -10,7 +10,6 @@
                      weight="bold"
                      @click="toggleAccordion"
                      v-else/>
-
     </div>
     <div class="accordion__items"
          :class="computedAccordionItemsStyle">
@@ -68,12 +67,18 @@
 
     &__items {
       margin: space(xs) space(m) space(m) space(m);
-      max-height: 500px;
+      max-height: 400px;
       transition: 0.3s ease-in-out all;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+
+      &:hover {
+        overflow-y: scroll;
+      }
 
       &.closed {
         max-height: 0;
-      overflow: hidden;
+        overflow: hidden;
       }
     }
   }
