@@ -77,8 +77,11 @@
     transition: background-color 0.3s ease;
     gap: space(xs);
 
+    &:not(:last-child) {
+      margin-bottom: space(xs);
+    }
+
     &.completed {
-      opacity: 0.7;
       text-decoration: line-through;
     }
 
