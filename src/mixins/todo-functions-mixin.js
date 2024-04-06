@@ -34,32 +34,37 @@ export const addTodo = {
       addTask: 'addTodo',
     }),
     addTodo() {
-      if (this.newTodo.trim().length > 0) {
+      const queryCategory = Object.values(this.$route.query)[0];
+      const isCategoryAll = queryCategory.toLowerCase() === 'all';
+      const isNewTodoEmpty = this.newTodo.trim().length === 0;
+      const isSelectedCategoryEmpty = this.selectedCategory.trim().length === 0;
+      
+      if (!isNewTodoEmpty) {
         this.error = false;
         this.errorMessage = '';
       }
       
-      if (this.selectedCategory.trim().length > 0) {
+      if (!isSelectedCategoryEmpty) {
         this.categoryError = false;
         this.categoryErrorMessage = '';
       }
 
-      if (this.newTodo.trim().length > 0 && this.selectedCategory.trim().length > 0) {
-        this.addTask({
-          todo: this.newTodo,
-          category: this.selectedCategory,
-        });
-        this.resetFields();
-      } else {
-        if (this.newTodo.trim().length === 0) {
+      if (isNewTodoEmpty || isSelectedCategoryEmpty && isCategoryAll) {
+        if (isNewTodoEmpty) {
           this.error = true;
           this.errorMessage = 'Please add a todo.'
         }
 
-        if (this.selectedCategory.trim().length === 0) {
+        if (isSelectedCategoryEmpty) {
           this.categoryError = true;
           this.categoryErrorMessage = 'Please select a category.';
         }
+      } else {
+        this.addTask({
+          todo: this.newTodo,
+          category: isCategoryAll ? this.selectedCategory : queryCategory,
+        });
+        this.resetFields();
       }
     },
     resetFields() {
