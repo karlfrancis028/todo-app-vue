@@ -50,8 +50,7 @@
     padding: space(xs) space(base);
     
     &__controls {
-      @extend %flex-row;
-      align-items: flex-end;
+      @extend %flex-col;
       gap: space(base);
     }
 

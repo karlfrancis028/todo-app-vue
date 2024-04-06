@@ -5,18 +5,19 @@
     </div>
     <template slot="toolbar">
       <form-container @click:submit="addTodo">
-        <text-field-with-label v-model="newTodo"/>
-        <select v-if="hasChosenCategory" v-model="selectedCategory">
-          <option value=""
-                  disabled>
-            Select a Category
-          </option>
+        <input-with-label-and-error v-model="newTodo" 
+                                    :error="error" 
+                                    :error-message="errorMessage"/>
+        <select-with-label-and-error v-if="hasChosenCategory"
+                                     v-model="selectedCategory"
+                                     :error="categoryError"
+                                     :error-message="categoryErrorMessage">
           <option v-for="category in categories"
                   :key="category.id"
                   :value="category.category">
             {{ category.category }}
           </option>
-        </select>
+        </select-with-label-and-error>
       </form-container>
     </template>
     <template slot="content">

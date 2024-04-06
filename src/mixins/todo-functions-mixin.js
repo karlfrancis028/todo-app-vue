@@ -1,8 +1,8 @@
-import { mapActions } from "vuex"
-import AddCategoryModal from '@/components/modals/add-category-modal';
-import ViewTodoModal from '@/components/modals/view-todo-modal';
-import EditTodoModal from '@/components/modals/edit-todo-modal';
-import DeleteTodoModal from '@/components/modals/delete-todo-modal';
+  import { mapActions } from "vuex"
+  import AddCategoryModal from '@/components/modals/add-category-modal';
+  import ViewTodoModal from '@/components/modals/view-todo-modal';
+  import EditTodoModal from '@/components/modals/edit-todo-modal';
+  import DeleteTodoModal from '@/components/modals/delete-todo-modal';
   import DeleteCategoryModal from '@/components/modals/delete-category-modal';
 
 export const fetchData = {
@@ -23,6 +23,10 @@ export const addTodo = {
     return {
       newTodo: '',
       selectedCategory: '',
+      error: false,
+      errorMessage: '',
+      categoryError: false,
+      categoryErrorMessage: '',
     }
   },
   methods: {
@@ -30,11 +34,33 @@ export const addTodo = {
       addTask: 'addTodo',
     }),
     addTodo() {
-      this.addTask({
-        todo: this.newTodo,
-        category: this.selectedCategory,
-      });
-      this.resetFields();
+      if (this.newTodo.trim().length > 0) {
+        this.error = false;
+        this.errorMessage = '';
+      }
+      
+      if (this.selectedCategory.trim().length > 0) {
+        this.categoryError = false;
+        this.categoryErrorMessage = '';
+      }
+
+      if (this.newTodo.trim().length > 0 && this.selectedCategory.trim().length > 0) {
+        this.addTask({
+          todo: this.newTodo,
+          category: this.selectedCategory,
+        });
+        this.resetFields();
+      } else {
+        if (this.newTodo.trim().length === 0) {
+          this.error = true;
+          this.errorMessage = 'Please add a todo.'
+        }
+
+        if (this.selectedCategory.trim().length === 0) {
+          this.categoryError = true;
+          this.categoryErrorMessage = 'Please select a category.';
+        }
+      }
     },
     resetFields() {
       this.newTodo = '';

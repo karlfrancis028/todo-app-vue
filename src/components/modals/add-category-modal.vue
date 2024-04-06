@@ -2,9 +2,11 @@
   <modal-container>
     <div class="modal__body">
       <form-container @click:submit="addCategory" for-editing>
-        <text-field-with-label v-model="newCategory"
-                               label="Add Category"
-                               field-placeholder="Add your own Category"/>
+        <input-with-label-and-error v-model="newCategory"
+                                    label="Add Category"
+                                    field-placeholder="Add your own Category"
+                                    :error="error"
+                                    :error-message="errorMessage"/>
       </form-container>
     </div>
   </modal-container>
@@ -18,13 +20,27 @@
     data() {
       return {
         newCategory: '',
+        error: false,
+        errorMessage: null,
       }
     },
     methods: {
       ...mapActions({ addCategories: 'addCategory' }),
       addCategory() {
-        this.$emit('confirm-add-category', this.newCategory);
-        this.$modal.close();
+        const regex = /[^a-zA-Z]/;
+
+        if (this.newCategory.trim().length > 0) {
+          if (!regex.test(this.newCategory)) {
+            this.$emit('confirm-add-category', this.newCategory);
+            this.$modal.close();
+          } else {
+            this.error = true;
+            this.errorMessage = 'Numbers and symbols are not allowed.';
+          }
+        } else {
+          this.error = true;
+          this.errorMessage = 'Please add a category.';
+        }
       }
     }
   }

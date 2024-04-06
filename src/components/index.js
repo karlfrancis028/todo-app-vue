@@ -4,7 +4,8 @@ import DataItem from './data-item';
 import Card from './card';
 import Checkbox from './checkbox';
 import ModalContainer from './modal-container';
-import TextFieldWithLabel from './text-field-with-label';
+import InputWithLabelAndError from './input-with-label-and-error';
+import SelectWithLabelAndError from './select-with-label-and-error.vue';
 import FormContainer from './form-container';
 import CircularProgressBar from './circular-progress-bar';
 import Accordion from './accordion';
@@ -16,7 +17,8 @@ export default {
   Card,
   Checkbox,
   ModalContainer,
-  TextFieldWithLabel,
+  InputWithLabelAndError,
+  SelectWithLabelAndError,
   FormContainer,
   CircularProgressBar,
   Accordion,
