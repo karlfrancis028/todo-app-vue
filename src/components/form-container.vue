@@ -1,6 +1,5 @@
 <template>
   <form @submit.prevent="onSubmit"
-        @keydown.enter="onSubmit"
         class="form-container">
     <div class="form-container__controls">
       <slot></slot>
