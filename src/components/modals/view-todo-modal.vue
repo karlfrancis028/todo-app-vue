@@ -10,8 +10,6 @@
           <h4>Task</h4>
           <p>{{ data.todo }}</p>
         </div>
-      </div>
-      <div class="modal__body__col">
         <div>
           <h4>Category</h4>
           <p>{{ data.category }}</p>
