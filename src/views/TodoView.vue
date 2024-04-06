@@ -6,7 +6,7 @@
     <template slot="toolbar">
       <form-container @click:submit="addTodo">
         <text-field-with-label v-model="newTodo"/>
-        <select v-model="selectedCategory">
+        <select v-if="hasChosenCategory" v-model="selectedCategory">
           <option value=""
                   disabled>
             Select a Category
@@ -37,7 +37,10 @@ import { addTodo } from '@/mixins/todo-functions-mixin';
       }),
       computedTitle() {
         return this.$route.query.category === 'All' ? 'Todos' : this.$route.query.category;
-      }
+      },
+      hasChosenCategory() {
+        return this.$route.query.category.toLowerCase() === 'all';
+      },
     },
     methods: {
       backToHome() {
