@@ -1,5 +1,5 @@
 <template>
-  <one-col-layout @click:prev-btn="backToHome">
+  <one-col-layout @click:prev-btn="backToHome" class="todo">
     <div slot="title">
       {{ computedTitle }}
     </div>
@@ -50,5 +50,15 @@ import { addTodo } from '@/mixins/todo-functions-mixin';
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  @import "~@/scss/global.scss";
+
+  .todo {
+    .one-col-layout {
+      &__main {
+        background: rgb(238, 237, 237);
+        border-radius: 10px;
+      }
+    }
+  }
 </style>

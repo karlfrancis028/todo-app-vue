@@ -77,6 +77,7 @@
     transition: background-color 0.3s ease;
     gap: space(xs);
     margin: space(xs)-2;
+    background-color: white;
 
     &:not(:last-child) {
       margin-bottom: space(xs);

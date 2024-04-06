@@ -4,7 +4,7 @@ import { httpRequest } from '@/services';
 
 Vue.use(Vuex)
 
-const todoApiEndpoint = 'https://63e618ca83c0e85a868c9732.mockapi.io/tasks';
+const todoApiEndpoint = 'https://660437ad2393662c31d0f2cc.mockapi.io/todos';
 const categoriesApiEndpoint = 'https://644f87f0b61a9f0c4d24c4d8.mockapi.io/todo-categories';
 
 export default new Vuex.Store({

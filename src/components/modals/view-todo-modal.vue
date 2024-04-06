@@ -12,7 +12,7 @@
         </div>
         <div>
           <h4>Category</h4>
-          <p>{{ data.category }}</p>
+          <p>{{ data.category || '-' }}</p>
         </div>
         <div>
           <h4>Status</h4>
