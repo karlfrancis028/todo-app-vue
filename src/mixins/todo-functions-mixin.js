@@ -49,7 +49,7 @@ export const addTodo = {
         this.categoryErrorMessage = '';
       }
 
-      if (isNewTodoEmpty || isSelectedCategoryEmpty && isCategoryAll) {
+      if ((isNewTodoEmpty || isSelectedCategoryEmpty) && isCategoryAll) {
         if (isNewTodoEmpty) {
           this.error = true;
           this.errorMessage = 'Please add a todo.'
