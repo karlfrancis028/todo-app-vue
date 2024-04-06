@@ -66,14 +66,17 @@
     }
 
     &__items {
-      margin: space(xs) space(m) space(m) space(m);
+      margin: space(xs) 0;
       max-height: 400px;
-      transition: 0.3s ease-in-out all;
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
 
       &:hover {
         overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+          width: 0;
+        }
       }
 
       &.closed {

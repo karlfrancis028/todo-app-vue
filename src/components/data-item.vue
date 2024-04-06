@@ -14,15 +14,15 @@
     <div class="data-item__actions">
       <div @click.stop="editItem"
            class="data-item__actions__edit">
-        <p>
+        <span>
           <ph-note-pencil :size="22" weight="bold" />
-        </p>
+        </span>
       </div>
       <div @click.stop="deleteItem"
            class="data-item__actions__del">
-        <p>
+        <span>
           <ph-trash-simple :size="22" weight="bold" />
-        </p>
+        </span>
       </div>
     </div>
   </card>
@@ -94,13 +94,20 @@
       @extend %flex-row--center-y;
       gap: space(s);
       flex-grow: 1;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      word-wrap: break-word;
+      width: 100px;
 
       &__todo {
-        flex: 1;
+
+        p {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          word-wrap: break-word;
+
+          @media only screen and (max-width: 400px) {
+            max-width: 130px;
+          }
+        }
       }
     }
 
@@ -110,12 +117,27 @@
 
       &__edit,
       &__del {
+        --size: 34px;
         border-radius: 8px;
-        height: 34px;
+        height: var(--size);
         width: fit-content;
         padding: space(xs)-2;
         border-radius: 8px;
         color: white;
+
+        svg {
+          --size: 20px;
+          height: var(--size);
+          width: var(--size);
+
+          @media only screen and (max-width: 400px) {
+            --size: 16px;
+          }
+        }
+
+        @media only screen and (max-width: 400px) {
+          --size: 32px;
+        }
       }
 
       &__edit {
