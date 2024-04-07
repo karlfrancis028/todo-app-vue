@@ -4,7 +4,7 @@
       <form-container @click:submit="editTask" 
                       for-editing>
         <input-with-label-and-error label="Edit Todo"
-                                    v-model="newTodo"/>
+                                    v-model="currentTodo"/>
       </form-container>
     </div>
   </modal-container>
@@ -15,8 +15,8 @@
     name: "edit-todo-modal",
     data() {
       return {
-        newTodo: '',
-        selectedCategory: this.data.category,
+        currentTodo: '',
+        currentCategory: null,
       }
     },
     props: {
@@ -26,13 +26,14 @@
       },
     },
     mounted() {
-      this.newTodo = this.data.todo;
+      this.currentTodo = this.data.todo;
+      this.currentCategory = this.data.category;
     },
     methods: {
       editTask() {
-        this.$emit('confirm-todo-editing', this.newTodo, this.data.id);
+        this.$emit('confirm-todo-editing', this.currentTodo, this.data.id);
         this.$modal.close();
-      }
+      },
     }
   }
 </script>
