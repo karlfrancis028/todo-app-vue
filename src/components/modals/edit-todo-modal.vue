@@ -3,8 +3,8 @@
     <div class="modal__body">
       <form-container @click:submit="editTask" 
                       for-editing>
-        <text-field-with-label label="Edit Todo"
-                               v-model="data.todo"/>
+        <input-with-label-and-error label="Edit Todo"
+                                    v-model="newTodo"/>
       </form-container>
     </div>
   </modal-container>
@@ -25,9 +25,12 @@
         default: () => {},
       },
     },
+    mounted() {
+      this.newTodo = this.data.todo;
+    },
     methods: {
       editTask() {
-        this.$emit('confirm-todo-editing', this.data.todo, this.data.id);
+        this.$emit('confirm-todo-editing', this.newTodo, this.data.id);
         this.$modal.close();
       }
     }
