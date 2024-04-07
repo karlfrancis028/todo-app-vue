@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     todos: [],
     todoCategories: [],
+    loading: false,
   },
   getters: {
     //TODOS
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     },
     //TODO CATEGORIES
     getCategories: state => state.todoCategories,
+    getLoadingState: state => state.loading,
   },
   actions: {
     //TODOS
@@ -47,7 +49,8 @@ export default new Vuex.Store({
         console.log(error);
       } 
     },
-    async addTodo({commit}, todo) {
+    async addTodo({commit, state}, todo) {
+      state.loading = true;
       try {
         const capitalizedTodo = todo.todo.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         const payload = await httpRequest('post', todoApiEndpoint, {
@@ -58,9 +61,12 @@ export default new Vuex.Store({
         commit('ADD_TODO', payload);
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
     },
-    async setTodoStatus({commit}, todo) {
+    async setTodoStatus({commit, state}, todo) {
+      state.loading = true;
       try {
         const payload = await httpRequest('put', `${todoApiEndpoint}/${todo.id}`, {
           status: todo.status === 'Active' ? 'Completed' : 'Active',
@@ -68,9 +74,12 @@ export default new Vuex.Store({
         commit('SET_TODO_STATUS', payload);
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
     },  
-    async editTodo({commit}, todo) {
+    async editTodo({commit, state}, todo) {
+      state.loading = true;
       try {
         const payload = await httpRequest('put', `${todoApiEndpoint}/${todo.todoId}`, {
           todo: todo.newTodo,
@@ -78,14 +87,19 @@ export default new Vuex.Store({
         commit('EDIT_TODO', payload)
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
     },
-    async deleteTodo({commit}, todoId) {
+    async deleteTodo({commit, state}, todoId) {
+      state.loading = true;
       try {
         await httpRequest('delete', `${todoApiEndpoint}/${todoId}`);
         commit('DELETE_TODO', todoId);
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
     },
     //TODO CATEGORIES
@@ -97,7 +111,8 @@ export default new Vuex.Store({
         console.log(error);
       }
     },
-    async addCategory({commit}, category) {
+    async addCategory({commit, state}, category) {
+      state.loading = true;
       try {
         if (category !== undefined) {
           const capitalizedCategory = category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -108,16 +123,21 @@ export default new Vuex.Store({
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
     },
-    async deleteCategory({commit}, categoryId) {
+    async deleteCategory({commit, state}, categoryId) {
+      state.loading = true;
       try {
         await httpRequest('delete', `${categoriesApiEndpoint}/${categoryId}`);
         commit('DELETE_CATEGORY', categoryId);
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
-    }
+    },
   },
   mutations: {
     //TODOS
@@ -153,6 +173,6 @@ export default new Vuex.Store({
     DELETE_CATEGORY(state, categoryId) {
       const index = state.todoCategories.findIndex(category => category.id === categoryId);
       state.todoCategories.splice(index, 1);
-    }
+    },
   },
 })

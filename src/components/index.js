@@ -9,6 +9,7 @@ import SelectWithLabelAndError from './select-with-label-and-error.vue';
 import FormContainer from './form-container';
 import CircularProgressBar from './circular-progress-bar';
 import Accordion from './accordion';
+import LoadingBlocker from './loading-blocker.vue';
 
 export default {
   OneColLayout,
@@ -22,4 +23,5 @@ export default {
   FormContainer,
   CircularProgressBar,
   Accordion,
+  LoadingBlocker,
 }
