@@ -78,17 +78,17 @@ export default new Vuex.Store({
         state.loading = false;
       }
     },  
-    async editTodo({commit, state}, todo) {
+    async editTodo({dispatch, state}, todo) {
       state.loading = true;
       try {
-        const payload = await httpRequest('put', `${todoApiEndpoint}/${todo.todoId}`, {
+        await httpRequest('put', `${todoApiEndpoint}/${todo.todoId}`, {
           todo: todo.newTodo,
           category: todo.newCategory,
         })
-        commit('EDIT_TODO', payload)
       } catch (error) {
         console.log(error);
       } finally {
+        await dispatch('fetchTodos');
         state.loading = false;
       }
     },
@@ -166,12 +166,6 @@ export default new Vuex.Store({
       const index = state.todos.findIndex((item) => item.id === todo.id);
       if (index !== -1) {
         state.todos[index].status = state.todos[index].status === 'Active' ? 'Completed' : 'Active';
-      } else throw new Error;
-    },
-    EDIT_TODO(state, todo) {
-      const index = state.todos.findIndex((item) => item.id === todo.id);
-      if(index !== -1) {
-        state.todos[index].todo = todo.todo;
       } else throw new Error;
     },
     DELETE_TODO(state, todoId) {
