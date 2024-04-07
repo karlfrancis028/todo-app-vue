@@ -1,4 +1,4 @@
-  import { mapActions } from "vuex"
+  import { mapActions, mapGetters } from "vuex"
   import AddCategoryModal from '@/components/modals/add-category-modal';
   import ViewTodoModal from '@/components/modals/view-todo-modal';
   import EditTodoModal from '@/components/modals/edit-todo-modal';
@@ -75,10 +75,16 @@ export const addTodo = {
 }
 
 export const handleTodoData = {
+  computed: {
+    ...mapGetters({
+      categories: 'getCategories',
+    }),
+  },
   methods: {
     ...mapActions({
       deleteTodo: 'deleteTodo',
       editTodo: 'editTodo',
+      editCategory: 'editCategory',
     }),
     handleData(action, data) {
       switch (action) {
@@ -95,10 +101,11 @@ export const handleTodoData = {
             component: EditTodoModal,
             props: {
               data: data,
+              categories: this.categories,
             },
             events: {
-              'confirm-todo-editing': (newTodo, todoId) => {
-                this.editTodo({newTodo, todoId});
+              'confirm-todo-editing': (newTodo, todoId, newCategory) => {
+                this.editTodo({newTodo, todoId, newCategory});
               }
             }
           })

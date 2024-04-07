@@ -83,6 +83,7 @@ export default new Vuex.Store({
       try {
         const payload = await httpRequest('put', `${todoApiEndpoint}/${todo.todoId}`, {
           todo: todo.newTodo,
+          category: todo.newCategory,
         })
         commit('EDIT_TODO', payload)
       } catch (error) {
@@ -121,6 +122,20 @@ export default new Vuex.Store({
           });
           commit('ADD_CATEGORY', payload);
         }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        state.loading = false;
+      }
+    },
+    async editCategory({commit, state}, category) {
+      console.log('store', category);
+      state.loading = true;
+      try {
+        const payload = await httpRequest('put', `${categoriesApiEndpoint}/${category.categoryid}`, {
+          category: category.category,
+        })
+        commit('EDIT_CATEGORY', payload);
       } catch (error) {
         console.log(error);
       } finally {
@@ -169,6 +184,12 @@ export default new Vuex.Store({
     },
     ADD_CATEGORY(state, category) {
       state.todoCategories.push(category);
+    },
+    EDIT_CATEGORY(state, category) {
+      const index = state.todoCategories.findIndex((item) => item.id === category.id);
+      if(index !== -1) {
+        state.todoCategories[index].category = category.category;
+      } else throw new Error;
     },
     DELETE_CATEGORY(state, categoryId) {
       const index = state.todoCategories.findIndex(category => category.id === categoryId);

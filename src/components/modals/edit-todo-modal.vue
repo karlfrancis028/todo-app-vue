@@ -5,6 +5,13 @@
                       for-editing>
         <input-with-label-and-error label="Edit Todo"
                                     v-model="currentTodo"/>
+        <select-with-label-and-error v-model="currentCategory">
+          <option v-for="category in categories"
+                  :key="category.id"
+                  :value="category.category">
+            {{ category.category }}
+          </option>
+        </select-with-label-and-error>
       </form-container>
     </div>
   </modal-container>
@@ -24,6 +31,10 @@
         type: Object,
         default: () => {},
       },
+      categories: {
+        type: Array,
+        default: () => [],
+      },
     },
     mounted() {
       this.currentTodo = this.data.todo;
@@ -31,7 +42,7 @@
     },
     methods: {
       editTask() {
-        this.$emit('confirm-todo-editing', this.currentTodo, this.data.id);
+        this.$emit('confirm-todo-editing', this.currentTodo, this.data.id, this.currentCategory);
         this.$modal.close();
       },
     }
