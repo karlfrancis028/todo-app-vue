@@ -138,6 +138,9 @@ export const addCategory = {
     addCategory(value) {
       this.$modal.open({
         component: AddCategoryModal,
+        props: {
+          categories: this.categories,
+        },
         events: {
           'confirm-add-category': (category) => {
             this.addCategories(category);

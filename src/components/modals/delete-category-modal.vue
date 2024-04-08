@@ -4,7 +4,8 @@
       <p>Are you sure you want to delete the category '<b>{{ data.category }}</b>'?</p>
       <br>
       <p>
-        <b class="warning">NOTE</b>: Once you pressed '<b>Yes</b>' there is no way of getting the data back.
+        <b class="warning">NOTE</b>:<br> Deleting a category will result in the deletion of all tasks connected to that category.
+        Once you pressed '<b>Yes</b>' there is no way of getting the data back.
       </p>
     </div>
     <div class="modal__footer">
