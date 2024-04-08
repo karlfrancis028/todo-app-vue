@@ -150,7 +150,6 @@ export default new Vuex.Store({
         for(const todo of matchedTodos) {
           await httpRequest('delete', `${todoApiEndpoint}/${todo.id}`);
           commit('DELETE_TODO', todo.id);
-          console.log('success');
         }
       } catch (error) {
         console.log(error);
