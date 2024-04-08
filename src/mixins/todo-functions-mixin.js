@@ -156,8 +156,8 @@ export const addCategory = {
           data: category,
         },
         events: {
-          'confirm-category-deletion': (categoryId) => {
-            this.deleteCategories(categoryId);
+          'confirm-category-deletion': (category) => {
+            this.deleteCategories(category);
           }
         }
       })
@@ -177,8 +177,8 @@ export const deleteCategory = {
           data: category,
         },
         events: {
-          'confirm-category-deletion': (categoryId) => {
-            this.deleteCategories(categoryId);
+          'confirm-category-deletion': (category) => {
+            this.deleteCategories(category);
           }
         }
       })

@@ -35,7 +35,7 @@
         this.$modal.close();
       },
       deleteCategory() {
-        this.$emit('confirm-category-deletion', this.data.id);
+        this.$emit('confirm-category-deletion', this.data);
         this.closeModal();
       }
     }

@@ -129,7 +129,6 @@ export default new Vuex.Store({
       }
     },
     async editCategory({commit, state}, category) {
-      console.log('store', category);
       state.loading = true;
       try {
         const payload = await httpRequest('put', `${categoriesApiEndpoint}/${category.categoryid}`, {
@@ -142,11 +141,17 @@ export default new Vuex.Store({
         state.loading = false;
       }
     },
-    async deleteCategory({commit, state}, categoryId) {
+    async deleteCategory({commit, state}, category) {
       state.loading = true;
       try {
-        await httpRequest('delete', `${categoriesApiEndpoint}/${categoryId}`);
-        commit('DELETE_CATEGORY', categoryId);
+        const matchedTodos = state.todos.filter(todo => todo.category === category.category);
+        await httpRequest('delete', `${categoriesApiEndpoint}/${category.id}`);
+        commit('DELETE_CATEGORY', category.id);
+        for(const todo of matchedTodos) {
+          await httpRequest('delete', `${todoApiEndpoint}/${todo.id}`);
+          commit('DELETE_TODO', todo.id);
+          console.log('success');
+        }
       } catch (error) {
         console.log(error);
       } finally {
