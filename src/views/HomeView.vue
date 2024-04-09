@@ -4,38 +4,39 @@
       Todo App
     </div>
     <template slot="content">
-      <div class="home-view__content__title">
-        <p>These are your todo list</p>
+      <div class="home-view__content">
+        <div class="home-view__content__title">
+          <p>These are your todo list</p>
+        </div>
+        <div class="home-view__content__cards">
+          <card class="home-view__content__cards__card home-view__content__cards__card-add"
+                @click="addCategory">
+            <ph-plus :size="40" 
+                     weight="bold"/>
+            <b>Add Category</b>
+          </card>
+          <card class="home-view__content__cards__card home-view__content__cards__card-all"
+                @click="routeToTodoList('All')">
+            <ph-list-bullets :size="40" 
+                             weight="bold"/>
+            <b>View All</b>
+          </card>
+          <card v-for="category in categories"
+                :key="category.id" 
+                class="home-view__content__cards__card"
+                @click="routeToTodoList(category.category)">
+            <ph-x :size="24" 
+                  weight="bold" 
+                  class="home-view__content__cards__card__icon"
+                  @click.stop="deleteCategory(category)"/>
+            <circular-progress-bar :completed="getNumberofTasksDonePerCategory(category.category)"
+                                   :total="getCategoryTaskCount(category.category)">
+              <b>{{ category.category }}</b>
+              <p>{{ taskStringPluralization(category.category) }}</p>
+            </circular-progress-bar>
+          </card>
+        </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
       </div>
-      <div class="home-view__content__cards">
-        <card class="home-view__content__cards__card home-view__content__cards__card-add"
-              @click="addCategory">
-          <ph-plus :size="40" 
-                   weight="bold"/>
-          <b>Add Category</b>
-        </card>
-        <card class="home-view__content__cards__card home-view__content__cards__card-all"
-              @click="routeToTodoList('All')">
-          <ph-list-bullets :size="40" 
-                           weight="bold"/>
-          <b>View All</b>
-        </card>
-        <card v-for="category in categories"
-              :key="category.id" 
-              class="home-view__content__cards__card"
-              @click="routeToTodoList(category.category)">
-          <ph-x :size="24" 
-                weight="bold" 
-                class="home-view__content__cards__card__icon"
-                @click.stop="deleteCategory(category)"/>
-          <circular-progress-bar :completed="getNumberofTasksDonePerCategory(category.category)"
-                                 :total="getCategoryTaskCount(category.category)">
-            <b>{{ category.category }}</b>
-            <p>{{ taskStringPluralization(category.category) }}</p>
-          </circular-progress-bar>
-        </card>
-        
-      </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     </template>
   </one-col-layout>
 </template>

@@ -2,6 +2,9 @@
   <div class="loading-blocker">
     <div class="loading-blocker__container">
       <div class="loading-blocker__circle"></div>
+      <div v-if="loadingMessage" class="loading-blocker__message">
+        <p>{{ loadingMessage }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -9,6 +12,12 @@
 <script>
   export default {
     name: 'loading-blocker',
+    props: {
+      loadingMessage: {
+        type: String,
+        default: null,
+      },
+    },
   }
 </script>
 
@@ -26,8 +35,11 @@
     background: rgba(139, 139, 139, 0.267);
 
     &__container {
-      position: relative;
       width: 300px;
+
+      @media only screen and (max-width: 400px) {
+        width: 250px;
+      }
     }
 
     &__circle {
@@ -40,6 +52,25 @@
       border-top-color: color(primary);
       -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
       animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+
+      @media only screen and (max-width: 400px) {
+        --circumference: 250px;
+      }
+    }
+
+    &__message {
+      text-align: center;
+      margin-top: space(base);
+
+      p {
+        font-size: font(l);
+        font-weight: font(medium);
+
+        @media only screen and (max-width: 400px) {
+          font-size: font(m);
+          font-weight: font(medium);
+        }
+      }
     }
   }
 

@@ -41,13 +41,16 @@ export default new Vuex.Store({
   },
   actions: {
     //TODOS
-    async fetchTodos({commit}) {
+    async fetchTodos({commit, state}) {
+      state.loading = true;
       try {
         const payload = await httpRequest('get', todoApiEndpoint);
         commit('SET_TODOS', payload);
       } catch (error) {
         console.log(error);
-      } 
+      } finally {
+        state.loading = false;
+      }
     },
     async addTodo({commit, state}, todo) {
       state.loading = true;
@@ -104,12 +107,15 @@ export default new Vuex.Store({
       }
     },
     //TODO CATEGORIES
-    async fetchTodoCategories({commit}) {
+    async fetchTodoCategories({commit, state}) {
+      state.loading = true;
       try {
         const payload = await httpRequest('get', categoriesApiEndpoint);
         commit('SET_TODO_CATEGORIES', payload);
       } catch (error) {
         console.log(error);
+      } finally {
+        state.loading = false;
       }
     },
     async addCategory({commit, state}, category) {

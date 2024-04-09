@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <loading-blocker v-if="isLoading"/>
+    <loading-blocker v-if="isLoading"
+                     loading-message="Loading... Please wait."/>
     <router-view v-else/>
   </div>
 </template>

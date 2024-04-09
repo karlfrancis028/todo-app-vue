@@ -1,8 +1,8 @@
 <template>
   <div class="one-col-layout">
-    <header class="one-col-layout__header">
-      <div :style="hideWhenRouteIsHome"
-           @click="handleBackBtn"
+    <header class="one-col-layout__header"
+            :class="hasBackBtn">
+      <div @click="handleBackBtn"
            class="one-col-layout__header__btn">
         <ph-caret-left :size="24" weight="bold" />
         <p>
@@ -32,8 +32,8 @@
       PhCaretLeft,
     },
     computed: {
-      hideWhenRouteIsHome() {
-        return this.$route.path === '/' ? 'opacity: 0; pointer-events: none' : '';
+      hasBackBtn() {
+        return this.$route.path === '/' ? 'no-back' : '';
       },
     },
     methods: {
@@ -58,16 +58,28 @@
 
     &__header {
       @extend %flex-row--center-xy;
-      flex-basis: 50px;
 
       &__btn {
         @extend %flex-row--center-y;
         cursor: pointer;
+        width: 33.3%;
 
         &:hover {
           & > p {
             color: rgb(90, 90, 90);
           }
+        }
+      }
+
+      &.no-back {
+        @extend %flex-row--center-xy;
+
+        .one-col-layout__header__title {
+          width: 100%;
+        }
+        
+        .one-col-layout__header__btn {
+          display: none;
         }
       }
 
